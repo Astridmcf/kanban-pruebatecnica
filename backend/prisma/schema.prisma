@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model Column {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  title  String
+  order  Int
+  cards  Card[]
+  color    String? 
+}
+
+model Card {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String?
+  order     Int
+  columnId  String  @db.ObjectId
+  column    Column  @relation(fields: [columnId], references: [id], onDelete: Cascade)
+  dueDate   DateTime?
+  priority  Priority?
+}

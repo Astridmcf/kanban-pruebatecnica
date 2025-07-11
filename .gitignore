@@ -1,0 +1,6 @@
+backend/dist
+frontend/dist
+frontend/node_modules
+frontend/.next
+frontend/.cache
+backend/node_modules
